@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {{> parts/static}}
+    <title>
+        Your title
+    </title>
+</head>
+<body>
+{{> parts/bar}}
+<div class="container">
+<div class="col-lg-3 col-md-3 hidden-sm hidden-xs" style="margin-right: 100px">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="media">
+                <div align="center">
+                    <img class="thumbnail img-responsive" src="{{image}}" width="300px" height="300px">
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="media-body" >
+    <h2>{{firstname}} {{lastname}}</h2>
+    <h4><strong>Gender</strong></h4>
+    <p>{{gender}}</p>
+    <hr>
+    <h4><strong>Birthday</strong></h4>
+    <p>{{birthdate}}</p>
+    <hr>
+    <h4><strong>Location</strong></h4>
+    <p>{{location}}</p>
+    <hr>
+    <h4><strong>Bio</strong></h4>
+    <p>{{bio}}</p>
+</div>
+</div>
+</body>
+</html>

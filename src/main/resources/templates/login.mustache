@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {{> parts/static}}
+    <script language="JavaScript" type="text/javascript" src="/js/login.js"> </script>
+    <title>
+        Sign in
+    </title>
+</head>
+<body>
+{{> parts/bar}}
+<div class="container">
+    <div class="mainbody container-fluid" style="padding-top: 5%" >
+        <h2 class="form-signin-heading" align="center">Sign in to Film2Watch</h2>
+        <div class="container" style="width: 30% "  id="login_div">
+            <form class="form-login" action="/login" method="post">
+                <label for="name" class="sr-only">sign in</label>
+                <input  type="text" id="name" class="form-control" placeholder="email" name="username" required autofocus>
+                <label for="pwd" class="sr-only">password</label>
+                <input type="password" id="pwd" class="form-control" placeholder="password" name="password" required>
+                <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+                <button class="btn btn-lg btn-primary btn-block" type="submit" style="margin:5px,0px,5px,0px" >Sign in</button>
+                  </form>
+            <p>
+
+                Or
+            </p>
+            <form class="form-logon" action="/logon" method="get">
+                <button class="btn btn-lg btn-primary btn-block" type="submit" >Register</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

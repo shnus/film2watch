@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {{> parts/static}}
+    <title>
+        Your title
+    </title>
+</head>
+<body>
+{{> parts/bar}}
+<div class="container">
+    <form action="/logout" method="post">
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        <input class="btn btn-default" type="submit" value="Logout">
+    </form>
+</div>
+</body>
+</html>

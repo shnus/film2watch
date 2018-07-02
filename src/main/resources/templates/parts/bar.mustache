@@ -1,0 +1,34 @@
+<div>
+<nav class="navbar navbar-default">
+    <div class="container" style="display: inline-block">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Home</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/myPage">My page</a>
+        </div>
+
+        <div  class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/search">Search</a></li>
+                    <li><a href="/get">Get your film</a></li>
+                    <li><a href="/watchlist">My watchlist</a></li>
+                    <li><a href="/settings">Settings</a></li>
+                    <li><a href="#"  onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">Log out</a></li>
+                    <form action="/logout" method="post" id="logout-form" style="display: none">
+                        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+                    </form>
+                </ul>
+        </div>
+    </div>
+</nav>
+
+
+<link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+</div>
