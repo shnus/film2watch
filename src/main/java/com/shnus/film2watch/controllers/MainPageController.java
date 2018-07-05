@@ -25,30 +25,30 @@ public class MainPageController {
     }
 
     @GetMapping("/myPage")
-    public ModelAndView mainPage(){
+    public ModelAndView mainPage() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> userOptional = userService.getByUsername(auth.getName());
-        if(!userOptional.isPresent()){
+        if (!userOptional.isPresent()) {
             //TODO
         }
         User user = userOptional.get();
         Map<String, String> model = new HashMap<>();
-        model.put("firstname",user.getFirstName());
-        model.put("lastname",user.getLastName());
-        if(user.getBio().length() < 1){
-            model.put("bio","No info");
+        model.put("firstname", user.getFirstName());
+        model.put("lastname", user.getLastName());
+        if (user.getBio().length() < 1) {
+            model.put("bio", "No info");
         } else {
             model.put("bio", user.getBio());
         }
-        if(user.getLocation().length()<1){
-            model.put("location","No info");
+        if (user.getLocation().length() < 1) {
+            model.put("location", "No info");
         } else {
             model.put("location", user.getLocation());
         }
-        model.put("gender",user.getGender());
-        model.put("image",user.getImage_b64());
-        if(user.getBirthDate().toString().compareTo("1888-01-01")<0){
-            model.put("birthdate","No info");
+        model.put("gender", user.getGender());
+        model.put("image", user.getImage_b64());
+        if (user.getBirthDate().toString().compareTo("1888-01-01") < 0) {
+            model.put("birthdate", "No info");
         } else {
             model.put("birthdate", user.getBirthDate().toString());
         }

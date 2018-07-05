@@ -49,7 +49,7 @@ public class FilmDaoImpl implements FilmDao {
                         .vote_average(rs.getFloat("vote_average"))
                         .vote(rs.getFloat("vote"))
                         .build();
-                if(Float.valueOf(rs.getString("vote"))<1){
+                if (Float.valueOf(rs.getString("vote")) < 1) {
                     film.vote = -1;
                 }
                 filmList.add(film);
@@ -59,7 +59,7 @@ public class FilmDaoImpl implements FilmDao {
         return films;
     }
 
-    public boolean filmExist(Long Userid, Long FilmId){
+    public boolean filmExist(Long Userid, Long FilmId) {
         String query = "SELECT * FROM films " +
                 "WHERE UserId=? AND FilmId=?";
         Object[] args = new Long[2];
@@ -75,6 +75,29 @@ public class FilmDaoImpl implements FilmDao {
         });
 
         return !films.isEmpty();
+    }
+
+    @Override
+    public boolean rateFilm(long userId, int filmId, float vote) {
+        String query = "UPDATE films"
+                + " SET vote = ? "
+                + "WHERE userId = ? AND filmId = ?;";
+
+        int result = jdbcTemplate.update(
+                query, vote, userId, filmId);
+
+        return result > 0;
+    }
+
+    @Override
+    public boolean deleteFilm(long userId, int filmId) {
+        String query = "DELETE FROM films"
+                + " WHERE userId = ? AND filmId = ?;";
+
+        int result = jdbcTemplate.update(
+                query, userId, filmId);
+
+        return result > 0;
     }
 }
 

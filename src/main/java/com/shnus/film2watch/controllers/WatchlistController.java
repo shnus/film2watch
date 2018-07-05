@@ -12,7 +12,7 @@ public class WatchlistController {
 
 
     @GetMapping("/watchlist")
-    public ModelAndView mainPage(){
+    public ModelAndView mainPage() {
         Map<String, String> model = new HashMap<>();
         return new ModelAndView("watchlist", model);
     }

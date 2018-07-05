@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface UserDao {
     Optional<User> getByLoginName(String loginName);
+
     boolean createUser(User user);
 
     boolean isExist(String login);

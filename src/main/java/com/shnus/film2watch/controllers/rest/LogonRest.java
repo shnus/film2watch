@@ -57,7 +57,7 @@ public class LogonRest {
 
             result.setStatus("invalid");
         } else {
-            if(userService.createUser(user)){
+            if (userService.createUser(user)) {
                 result.setStatus("success");
             } else {
                 result.setStatus("db problems");

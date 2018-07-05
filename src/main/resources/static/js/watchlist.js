@@ -1,15 +1,15 @@
 $(document).ready(function() {
-    search();
+    getWatchlist();
 });
 
 var i;
-function search() {
+var span;
+var films;
+function getWatchlist() {
     var csrfHeader = $("meta[name='_csrf_header']").attr("content");
     var csrfToken = $("meta[name='_csrf']").attr("content");
     var headers = {};
     headers[csrfHeader] = csrfToken;
-
-
     $.ajax({
         type: "GET",
         contentType: "application/json",
@@ -19,14 +19,14 @@ function search() {
         timeout: 6000,
         headers: headers,
         success: function (data) {
-            var films = data;
+            films = data;
             if(films.length>0){
                 var j;
                 for(i = 0; i < films.length; i ++){
                     j=films.length-1-i;
                     if(films[j].poster_path==null)
                         continue;
-                    var film_num = String(i);
+                    var film_num = String(j);
                     var title = films[j].title;
                     var overview = films[j].overview;
                     var release_date = films[j].release_date;
@@ -77,20 +77,96 @@ function search() {
                         '<h3>' + title + '</h3>' +
                         ' <p>' + overview + '</p>' +
                         '<div style="align: right" class="plus">' +
-                        '<button class="btn btn-de" id="addToWatchlist" title="Add to watchlist">Add to watchlist</button></div>' +
+                        '<button class="btn btn-de" id="deleteFromWatchlist" title="Delete from watchlist">Delete from watchlist</button></div>' +
                         '</div>' +
                         '<span class="clearfix borda"></span>' +
                         '</article>' +
                         '</article>');
                 }
+
                 $("input[name^='rating']").change(function () {
                     var parentss = $(this).parents();
                     var divv = parentss[2];
                     var film_id = divv.children[0].value;
+                    films[film_id].vote = $(this).val();
                     divv = parentss[1];
-                    alert(film_id);
-                    var span = divv.children[3].children[0];
+                    span = divv.children[3].children[0];
                     span.innerHTML = "Your rating: "+$(this).val();
+                    var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+                    var csrfToken = $("meta[name='_csrf']").attr("content");
+                    var headers = {};
+                    headers[csrfHeader] = csrfToken;
+                    var obj = '{'
+                        +'"id" : "'+films[film_id].id+'",'
+                        +'"vote_average" : "'+films[film_id].vote_average+'",'
+                        +'"vote" : "'+films[film_id].vote+'",'
+                        +'"title" : "",'
+                        +'"poster_path" : "",'
+                        +'"original_language" : "",'
+                        +'"overview" : "",'
+                        +'"release_date" : ""'
+                        +'}';
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json",
+                        url: "/api/rateFilm",
+                        data: obj,
+                        dataType: 'json',
+                        cache: false,
+                        timeout: 6000,
+                        headers: headers,
+                        success: function (data) {
+                            span.innerHTML = "Your rating: "+$(this).val();
+                        },
+                        error: function (e) {
+                            alert("Server problems. Try again later.");
+                        }
+                    });
+                });
+                $(document).on('click', "#deleteFromWatchlist", function () {
+                    curButton = $(this);
+                    var parents = $(this).parents();
+                    div = parents[2];
+                    var num = div.children[1].children[0].value;
+
+                    var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+                    var csrfToken = $("meta[name='_csrf']").attr("content");
+                    var headers = {};
+                    headers[csrfHeader] = csrfToken;
+                    var obj = '{'
+                        +'"id" : "'+films[num].id+'",'
+                        +'"vote_average" : "'+0+'",'
+                        +'"vote" : "'+0+'",'
+                        +'"title" : "",'
+                        +'"poster_path" : "",'
+                        +'"original_language" : "",'
+                        +'"overview" : "",'
+                        +'"release_date" : ""'
+                        +'}';
+
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json",
+                        url: "/api/deleteFromWatchlist",
+                        data: obj,
+                        dataType: 'json',
+                        cache: false,
+                        timeout: 6000,
+                        headers: headers,
+                        success: function (data) {
+                            if(data.status === "success") {
+                                curButton.addClass("btn-success");
+                                curButton.html("Successfully deleted");
+                                curButton.parents()[3].remove();
+                            } else {
+                                curButton.addClass("btn-success");
+                                curButton.html("Already deleted");
+                            }
+                        },
+                        error: function (e) {
+                            alert("Server problems. Try again later.");
+                        }
+                    });
                 });
             } else {
                 $("#results").append("Your watchlist is empty");

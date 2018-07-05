@@ -14,7 +14,7 @@ public class LogoutController {
     @GetMapping("/logout")
     public ModelAndView mainPage() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null){
+        if (auth != null) {
             System.out.println("logout");
         }
         return new ModelAndView("logout", new HashMap<>());

@@ -8,7 +8,7 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
-public class UserBean  {
+public class UserBean {
 
     public String login;
     public String password;
@@ -19,6 +19,7 @@ public class UserBean  {
     public String location;
     public String image_b64;
 
-    public UserBean(){}
+    public UserBean() {
+    }
 
 }

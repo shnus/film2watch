@@ -42,7 +42,7 @@ public class SearchRest {
         }
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> userOptional = userService.getByUsername(auth.getName());
-        if(!userOptional.isPresent()){
+        if (!userOptional.isPresent()) {
             return ResponseEntity.badRequest().body(result);
         }
         if (filmService.filmExist(userOptional.get().getId(), filmBean.id)) {

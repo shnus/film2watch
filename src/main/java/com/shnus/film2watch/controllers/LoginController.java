@@ -19,7 +19,7 @@ public class LoginController {
         return new ModelAndView("login", model);
     }
 
-    @RequestMapping(value = "api/login", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "api/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     String Submit(@RequestParam("name") String name, @RequestParam("location") String location) {
         System.out.println("jdksjhkjlk");

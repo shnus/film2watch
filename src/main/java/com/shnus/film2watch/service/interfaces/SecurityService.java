@@ -6,5 +6,6 @@ package com.shnus.film2watch.service.interfaces;
 
 public interface SecurityService {
     String encrypt(String password);
+
     boolean validate(String password, String hash);
 }

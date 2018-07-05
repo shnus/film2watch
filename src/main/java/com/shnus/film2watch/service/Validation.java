@@ -9,8 +9,9 @@ import java.util.Map;
 @Builder
 @Value
 public class Validation {
-    public Validation(){
+    Map<String, Boolean> valid = new HashMap();
+
+    public Validation() {
 
     }
-    Map<String,Boolean> valid = new HashMap();
 }

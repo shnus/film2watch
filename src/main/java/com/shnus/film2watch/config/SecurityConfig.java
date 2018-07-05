@@ -33,7 +33,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authoritiesByUsernameQuery("select username, role from user_role where username=?");
 
 
-
     }
 
     @Override
@@ -41,23 +40,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //http.csrf().disable();
         http
                 .authorizeRequests()
-                    .antMatchers( "/css/**", "/js/**", "/images/**").permitAll()
-                    .antMatchers("/login*","/logon","/api/logon").anonymous()
-                    .anyRequest().authenticated()
-                    .and()
+                .antMatchers("/css/**", "/js/**", "/images/**").permitAll()
+                .antMatchers("/login*", "/logon", "/api/logon").anonymous()
+                .anyRequest().authenticated()
+                .and()
                 .formLogin()
-                    .loginPage("/login")
-                    .defaultSuccessUrl("/myPage")
-                    .failureUrl("/login?error=true")
-                    .and()
+                .loginPage("/login")
+                .defaultSuccessUrl("/myPage")
+                .failureUrl("/login?error=true")
+                .and()
                 .logout()
-                    .logoutUrl("/logout")
-                    .logoutSuccessUrl("/login");
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login");
 
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder;
     }

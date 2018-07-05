@@ -108,5 +108,4 @@ function sendProfile() {
         }
     });
 
-    $image_b64="";
 }

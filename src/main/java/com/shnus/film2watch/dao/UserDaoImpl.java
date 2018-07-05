@@ -64,7 +64,7 @@ public class UserDaoImpl implements UserDao {
                 user.getGender(), user.getBirthDate().toString(),
                 user.getLocation(), user.getBio(), user.getImage_b64());
 
-        if(result > 0){
+        if (result > 0) {
             query = "INSERT INTO user_role (username, role) VALUES \n" +
                     "(?, 'ROLE USER')";
             result = jdbcTemplate.update(query, user.getLoginName());

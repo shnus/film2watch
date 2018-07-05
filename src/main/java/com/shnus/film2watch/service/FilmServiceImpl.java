@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Service
@@ -34,5 +35,13 @@ public class FilmServiceImpl {
 
     public boolean filmExist(long userId, long filmId) {
         return filmDao.filmExist(userId, filmId);
+    }
+
+    public boolean rateFilm(long userId, @Valid FilmBean filmBean) {
+        return filmDao.rateFilm(userId, filmBean.id, filmBean.vote);
+    }
+
+    public boolean deleteFilm(@Valid FilmBean filmBean, long userId) {
+            return filmDao.deleteFilm(userId, filmBean.id);
     }
 }

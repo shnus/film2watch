@@ -12,7 +12,7 @@ public class SearchController {
 
 
     @GetMapping("/search")
-    public ModelAndView mainPage(){
+    public ModelAndView mainPage() {
         Map<String, String> model = new HashMap<>();
         return new ModelAndView("search", model);
     }

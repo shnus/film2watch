@@ -30,20 +30,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Validation checkUser(UserBean user) {
-        final Validation validation  = Validation.builder().build();
+        final Validation validation = Validation.builder().build();
 
-        if(userDao.isExist(user.login)) {
+        if (userDao.isExist(user.login)) {
             validation.getValid().put("USER_EXIST", true);
-        } else if(!EmailValidator.getInstance().isValid(user.login)){
+        } else if (!EmailValidator.getInstance().isValid(user.login)) {
             validation.getValid().put("INVALID_EMAIL", true);
         }
 
-        if(!(( (user.firstName+user.lastName).matches("[a-zA-Z]+") ) &&
-                (user.firstName.length()>1) )) {
+        if (!(((user.firstName + user.lastName).matches("[a-zA-Z]+")) &&
+                (user.firstName.length() > 1))) {
             validation.getValid().put("INVALID_NAME", true);
         }
 
-        if(user.password.length()<4){
+        if (user.password.length() < 4) {
             validation.getValid().put("SHORT_PASSWORD", true);
         }
 
@@ -53,11 +53,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> getByCredentials(Credentials credentials) {
         final Optional<User> userOptional = userDao.getByLoginName(credentials.getLogin());
-        if(!userOptional.isPresent()){
+        if (!userOptional.isPresent()) {
             return Optional.empty();
         }
         final User user = userOptional.get();
-        if(!securityService.validate(credentials.getPassword(), user.getPasswordHash())){
+        if (!securityService.validate(credentials.getPassword(), user.getPasswordHash())) {
             return Optional.empty();
         }
 
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
 
     public Optional<User> getByUsername(String username) {
         final Optional<User> userOptional = userDao.getByLoginName(username);
-        if(!userOptional.isPresent()){
+        if (!userOptional.isPresent()) {
             return Optional.empty();
         }
 
@@ -77,10 +77,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean createUser(UserBean user) {
 
-        if(user.birthDate.contains("!")){
-            user.birthDate="0001-01-01";
+        if (user.birthDate.contains("!")) {
+            user.birthDate = "0001-01-01";
         }
-        if(user.image_b64.length() < 10){
+        if (user.image_b64.length() < 10) {
             user.image_b64 = "https://cdn2.iconfinder.com/data/icons/website-icons/512/User_Avatar-256.png";
         }
 

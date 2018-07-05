@@ -11,13 +11,8 @@ import java.util.Map;
 @Controller
 public class SettingsController {
 
-//    @GetMapping("/")
-//    public String redirect(){
-//        return "redirect:/settings";
-//    }
-
     @GetMapping("/settings")
-    public ModelAndView homePage(){
+    public ModelAndView homePage() {
         Map<String, String> model = new HashMap<>();
         return new ModelAndView("settings", model);
     }
